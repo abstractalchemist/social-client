@@ -9,6 +9,14 @@ class Main extends React.Component {
 	super(props);
     }
 
+    componentDidMount() {
+	componentHandler.upgradeDom();
+    }
+    
+    componentDidUpdate() {
+	componentHandler.upgradeDom();
+    }
+
     render() {
 	const nav = [{linkname: 'Profile'},
 		     {linkname: 'Wall'},
@@ -19,10 +27,10 @@ class Main extends React.Component {
 		 <Nav>
 		 { nav }
 		 </Nav>
-		 <Drawer>
+		 </Header>
+		 <Drawer title="A Social App">
 		 { nav }
 		 </Drawer>
-		 </Header>
 		 <main className="mdl-layout__content">
 		 </main>
 		 </div> );
