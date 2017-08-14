@@ -1,7 +1,7 @@
 const Data = (function() {
 
     const url = "";
-    let loggedIn = false;
+    let loggedIn = true;
     return {
 	isLoggedIn() {
 	    return loggedIn;
@@ -15,8 +15,9 @@ const Data = (function() {
 
 	profile() {
 	    if(!loggedIn) {
-		return {};
+		return {  };
 	    }
+	    return { name: "Jason Hirata", email: "test@foo.com" };
 	},
 
 	search(parameters) {

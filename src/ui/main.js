@@ -22,10 +22,27 @@ class Main extends React.Component {
 	componentHandler.upgradeDom();
     }
 
+    addViewHandler(view) {
+	return function() {
+	    console.log(view + " clicked");
+	    switch(view) {
+	    case "Profile":
+		return ( <Profile {...Data.profile()} /> );
+	    case "Wall":
+		return ( <Wall /> );
+	    case "Search":
+		return ( <Search /> );
+	    
+		
+	    }
+	}
+    }
+    
+    
     render() {
-	const nav = [{linkname: 'Profile'},
-		     {linkname: 'Wall'},
-		     {linkname: 'Search'}]
+	const nav = [{linkname: 'Profile', clickAction : this.addViewHandler("Profile") },
+		     {linkname: 'Wall', clickAction : this.addViewHandler("Wall") },
+		     {linkname: 'Search', clickAction : this.addViewHandler("Search") }]
 	      .map( obj => <NavLink {...obj} ></NavLink> );
 	return ( <div className="mdl-layout mdl-js-layout">
 		 <Header title="A Social App">
@@ -37,11 +54,13 @@ class Main extends React.Component {
 		 { nav }
 		 </Drawer>
 		 <main className="mdl-layout__content">
-		 <div className="mdl-grid">
-		 <div className="mdl-cell mdl-cell--3-col">
-		 <Login />
-		 </div>
-		 </div>
+ 		 { (function() {
+		     if(Data.isLoggedIn()) 
+			 return ( <Profile {...Data.profile()}/> );
+		     else
+			 return ( <Login /> );
+		 })()
+		 }
 		 </main>
 		 </div> );
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 
-function NavLink({linkname}) {
-    return ( <a className="mdl-navigation__link" href="#">{ linkname }</a> );
+function NavLink({linkname, clickAction}) {
+    return ( <a className="mdl-navigation__link" href="#" onClick={ clickAction }>{ linkname }</a> );
 }
 
 export default NavLink;
