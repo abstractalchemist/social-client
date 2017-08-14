@@ -3,6 +3,11 @@ import Header from './header';
 import Nav from './nav';
 import NavLink from './nav_link';
 import Drawer from './drawer';
+import Login from './login';
+import Profile from './profile';
+import Wall from './wall';
+import Search from './search';
+import Data from '../data/store';
 
 class Main extends React.Component {
     constructor(props) {
@@ -32,6 +37,11 @@ class Main extends React.Component {
 		 { nav }
 		 </Drawer>
 		 <main className="mdl-layout__content">
+		 <div className="mdl-grid">
+		 <div className="mdl-cell mdl-cell--3-col">
+		 <Login />
+		 </div>
+		 </div>
 		 </main>
 		 </div> );
     }
