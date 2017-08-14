@@ -1,1 +1,1 @@
-This is a ReadME.
+This app is the front end for testing and working on various webapp security flaws.

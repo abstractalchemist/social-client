@@ -2,6 +2,7 @@ import React from 'react';
 
 function Display(profileData) {
     return (<div className="mdl-grid" style={{ maxWidth: "70%"}}>
+	    
 	    <div className="mdl-cell">
 	    <table className="mdl-data-table mdl-js-data-table">
 	    <tbody>
@@ -16,14 +17,53 @@ function Display(profileData) {
  	    </tr>
 	    </tbody>
 	    </table>
-	    
+
 	    </div>
+	    
+	    <div className="mdl-cell">
+	    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+	    <thead>
+	    {(function() {
+		if(profileData.tags) {
+		    return (<tr><th className="mdl-data-table__cell--non-numeric">Tags</th></tr> );
+		}
+	    })()}
+	    </thead>
+	    <tbody>
+	    {(function() {
+		if(profileData.tags) {
+		    return profileData.tags.map(obj => {
+			return ( <tr>
+				 <td className="mdl-data-table__cell--non-numeric">{obj}</td>
+				 </tr> )
+		    });
+					       
+		}
+	    })()
+	    }
+	    </tbody>
+	    </table>
+
+	    <button className="mdl-button mdl-js-button mdl-button--raised" onClick={ profileData.changeTags} >Delete Selected</button>
+	    </div>
+
+	    <div className="mdl-cell">
+	    <form onSubmit={ profileData.changeTags }>
+	    <div className="mdl-textfield mdl-js-textfield">
+	    <input className="mdl-textfield__input" type="text" id="newTag"></input>
+	    <label className="mdl-textfield__label" htmlFor="newTag">Tag....</label>
+
+	    </div>
+	    <input type="submit" className="mdl-button mdl-js-button mdl-button--raised" id="update"/>
+	    </form>
+	    </div>
+	    
 	    </div>)
 
 }
 
 function ChangePassword({changePassword}) {
-    return (<div className="mdl-grid" sytle={{ maxWidth : "50%" }}>
+    return (<div className="mdl-grid" style={{ maxWidth : "50%" }}>
 	    <div className="mdl-cell">
 	    <form onSubmit={ changePassword }>
 	    <div className="mdl-textfield mdl-js-textfield">
@@ -41,7 +81,7 @@ function ChangePassword({changePassword}) {
 	    <label className="mdl-textfield__label" htmlFor="newPassword2">New Password Again</label>
 	    </div>
 
-	    <input type="submit" className="mdl-button mdl-js-button mdl-button-raised"></input>
+	    <input type="submit" className="mdl-button mdl-js-button mdl-button--raised"></input>
 	    
 	    </form>
 	    </div>

@@ -17,7 +17,7 @@ const Data = (function() {
 	    if(!loggedIn) {
 		return {  };
 	    }
-	    return { name: "Jason Hirata", email: "test@foo.com" };
+	    return { name: "Jason Hirata", email: "test@foo.com", tags: ["programmer", "pc games", "weiss schwarz"]  };
 	},
 
 	search(parameters) {
