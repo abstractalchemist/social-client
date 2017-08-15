@@ -1,6 +1,6 @@
 import Rx from 'rx';
 
-const httpPromise = function(url, method) {
+const httpPromise = function(url, method, data) {
     method = method || "GET";
     return new Promise((resolve, reject) => {
 	var ajax = new XMLHttpRequest();
@@ -14,7 +14,7 @@ const httpPromise = function(url, method) {
 		    reject();
 	    }
 	}
-	ajax.send();
+	ajax.send(data);
     })
 }
 
@@ -51,8 +51,22 @@ const Data = (function() {
 	    }
 	},
 	
-	login() {
-	    return Rx.Observable.fromPromise(httpPromise(loginURL));
+	login(form) {
+	    if(form) {
+		const login = Rx.Observable.fromPromise(httpPromise(form.action, "POST", new FormData(form)));
+		login.subscribe(
+		    _ => {
+			loggedIn = true;
+		    },
+		    _ => {
+			loggedIn = false;
+		    });
+		return login;
+	    }
+	    return Rx.Observable.create(observer => {
+		observer.onError();
+		observer.onCompleted();
+	    });
 	}
 
 	
