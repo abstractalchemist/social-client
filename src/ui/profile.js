@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from './textfield';
 
 function Display(profileData) {
     return (<div className="mdl-grid" style={{ maxWidth: "70%"}}>
@@ -49,11 +50,7 @@ function Display(profileData) {
 
 	    <div className="mdl-cell">
 	    <form onSubmit={ profileData.changeTags }>
-	    <div className="mdl-textfield mdl-js-textfield">
-	    <input className="mdl-textfield__input" type="text" id="newTag"></input>
-	    <label className="mdl-textfield__label" htmlFor="newTag">Tag....</label>
-
-	    </div>
+	    <TextField id="newTag" label="New Tag...." />
 	    <input type="submit" className="mdl-button mdl-js-button mdl-button--raised" id="update"/>
 	    </form>
 	    </div>
@@ -66,21 +63,9 @@ function ChangePassword({changePassword}) {
     return (<div className="mdl-grid" style={{ maxWidth : "50%" }}>
 	    <div className="mdl-cell">
 	    <form onSubmit={ changePassword }>
-	    <div className="mdl-textfield mdl-js-textfield">
-	    <input className="mdl-textfield__input" type="password" id="oldPassword" ></input>
-	    <label className="mdl-textfield__label" htmlFor="oldPassword">Old Password</label>
-	    </div>
-
-	    <div className="mdl-textfield mdl-js-textfield">
-	    <input className="mdl-textfield__input" type="password" id="newPassword1"></input>
-	    <label className="mdl-textfield__label" htmlFor="newPassword1">New Password Once</label>
-	    </div>
-
-	    <div className="mdl-textfield mdl-js-textfield">
-	    <input className="mdl-textfield__input" type="password" id="newPassword2" ></input>
-	    <label className="mdl-textfield__label" htmlFor="newPassword2">New Password Again</label>
-	    </div>
-
+	    <TextField id="old-password" label="Old Password" type="password" />
+	    <TextField id="new-password-1" label="New Password..." type="password" />
+	    <TextField id="new-password-2" label="New Password verify" type="password" />
 	    <input type="submit" className="mdl-button mdl-js-button mdl-button--raised"></input>
 	    
 	    </form>

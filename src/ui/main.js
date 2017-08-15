@@ -8,6 +8,7 @@ import Profile from './profile';
 import Wall from './wall';
 import Search from './search';
 import Data from '../data/store';
+import NewAccount from './new_account';
 
 class Main extends React.Component {
     constructor(props) {
@@ -33,7 +34,8 @@ class Main extends React.Component {
 	    case "Search":
 		return ( <Search /> );
 	    
-		
+	    case "New Account":
+		return ( <NewAccount /> );
 	    }
 	}
     }

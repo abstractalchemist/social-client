@@ -1,19 +1,18 @@
 import React from 'react';
-
-function TextField({id,type,label}) {
-    return (<div className="mdl-textfield mdl-js-textfield">
-	    <input className="mdl-textfield__input" type={ type } id={ id }></input>
-	    <label className="mdl-textfield__label" htmlFor={ id }>{ label }</label>
-	    </div>)
-}
+import TextField from './textfield';
 
 function Submit() {
     return ( <input className="mdl-button mdl-js-button mdl-button--raised" type="submit" value="Submit"></input> );
 }
 
+function NewAccount() {
+    return (<input className="mdl-button mdl-js-button mdl-button--raised" type="submit" value="new-account"></input>    )
+}
+
 function ResetPassword() {
     return (<input className="mdl-button mdl-js-button mdl-button--raised" type="submit" value="reset-password"></input>    )
 }
+
 
 function Login({action}) {
 
@@ -26,10 +25,20 @@ function Login({action}) {
 	    <div className="mdl-cell mdl-cell--middle">
 	    <form action={action} onSubmit={submit}>
 	    <span>Please Login Here</span>
-	    <TextField id="username" type="text" label="Email...."/>
+	    <TextField id="username" label="Email...."/>
 	    <TextField id="passd" type="password" label="Password"/>
-	    <Submit />	
+	    <p>
+	    <Submit />
+	    </p>
+
+	    <p>
 	    <ResetPassword />
+	    </p>
+
+	    <p>
+	    <NewAccount />
+	    </p>
+	    
 	    </form>
 	    </div>
 	    </div>)
