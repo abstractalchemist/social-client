@@ -8,7 +8,11 @@ function TextField({id,type,label}) {
 }
 
 function Submit() {
-    return ( <input className="mdl-button mdl-js-button mdl-button--raised" type="submit"></input> );
+    return ( <input className="mdl-button mdl-js-button mdl-button--raised" type="submit" value="Submit"></input> );
+}
+
+function ResetPassword() {
+    return (<input className="mdl-button mdl-js-button mdl-button--raised" type="submit" value="reset-password"></input>    )
 }
 
 function Login({action}) {
@@ -24,7 +28,8 @@ function Login({action}) {
 	    <span>Please Login Here</span>
 	    <TextField id="username" type="text" label="Email...."/>
 	    <TextField id="passd" type="password" label="Password"/>
-	    <Submit />
+	    <Submit />	
+	    <ResetPassword />
 	    </form>
 	    </div>
 	    </div>)

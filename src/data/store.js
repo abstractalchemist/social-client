@@ -1,7 +1,7 @@
 const Data = (function() {
 
     const url = "";
-    let loggedIn = true;
+    let loggedIn = false;
     return {
 	isLoggedIn() {
 	    return loggedIn;
