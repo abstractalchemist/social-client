@@ -1,7 +1,29 @@
+import Rx from 'rx';
+
+const httpPromise = function(url, method) {
+    method = method || "GET";
+    return new Promise((resolve, reject) => {
+	var ajax = new XMLHttpRequest();
+	ajax.open(method, url, true);
+	ajax.onreadystatechange = _ => {
+	    if(ajax.readyState === 4) {
+		if(ajax.status === 200) {
+		    resolve(ajax.response);
+		}
+		else
+		    reject();
+	    }
+	}
+	ajax.send();
+    })
+}
+
 const Data = (function() {
 
     const url = "";
     let loggedIn = false;
+    const dummyProfile = { name: "Jason Hirata", email: "test@foo.com", tags: ["programmer", "pc games", "weiss schwarz"]  };
+    const loginURL = "";
     return {
 	isLoggedIn() {
 	    return loggedIn;
@@ -17,7 +39,7 @@ const Data = (function() {
 	    if(!loggedIn) {
 		return {  };
 	    }
-	    return { name: "Jason Hirata", email: "test@foo.com", tags: ["programmer", "pc games", "weiss schwarz"]  };
+	    return dummyProfile;
 	},
 
 	search(parameters) {
@@ -27,6 +49,10 @@ const Data = (function() {
 	    if(!loggedIn) {
 		return {};
 	    }
+	},
+	
+	login() {
+	    return Rx.Observable.fromPromise(httpPromise(loginURL));
 	}
 
 	
