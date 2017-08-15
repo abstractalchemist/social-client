@@ -3,8 +3,14 @@ const babelify = require('babelify');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const connect = require('gulp-connect');
+const mocha = require('gulp-mocha');
 
-gulp.task('js', function() {
+
+gulp.task('test', function() {
+    return gulp.src('./test/**/*.js').pipe(mocha({require:'test/setup.js', compilers: ['js:babel-register']}));
+})
+
+gulp.task('js', ['test'], function() {
     return browserify('./src/index.js', { debug: true })
 	.transform('babelify')
 	.bundle()
