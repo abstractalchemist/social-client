@@ -20,11 +20,14 @@ const httpPromise = function(url, method, data) {
 
 const Data = (function() {
 
-    const url = "";
+    const baseUrl = "/api";
     let loggedIn = false;
     const dummyProfile = { name: "Jason Hirata", email: "test@foo.com", tags: ["programmer", "pc games", "weiss schwarz"]  };
     const loginURL = "";
     return {
+	url() {
+	    return baseUrl;
+	},
 	isLoggedIn() {
 	    return loggedIn;
 	},

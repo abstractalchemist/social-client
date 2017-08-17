@@ -56,7 +56,7 @@ class Main extends React.Component {
 	case "Reset Password":
 	    return (evt) => {
 		evt.preventDefault();
-		this.setState({ view: <ResetPassword /> })
+		this.setState({ view: <ResetPassword action={this.addViewHandler.bind(this)}/> })
 	    }
 			      
 	}

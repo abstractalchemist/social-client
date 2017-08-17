@@ -45,7 +45,7 @@ function Login({action}) {
     
     return (<div className="mdl-grid" style={{maxWidth:"50%"}}>
 	    <div className="mdl-cell mdl-cell--middle">
-	    <form action={action} onSubmit={submit} id="login-form">
+	    <form action={Data.url() + "/login"} onSubmit={submit} id="login-form">
 	    <span>Please Login Here</span>
 	    <TextField id="username" label="Email...."/>
 	    <TextField id="passwd" type="password" label="Password"/>
@@ -55,7 +55,7 @@ function Login({action}) {
 	    </form>
 	    
 	    <form onSubmit={submit} id="reset-password">
-	    <ResetPassword />
+	    <ResetPassword/>
 	    </form>
 	    
 	    <form onSubmit={submit} id="new-account">

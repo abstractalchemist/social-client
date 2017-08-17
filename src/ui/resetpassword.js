@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from './textfield'
 
-function ResetPassword(action) {
+function ResetPassword({action}) {
     return (<div className="mdl-grid" style={{maxWidth:"70%"}}>
 	    <div className="mdl-cell mdl-cell--12-col mdl-cell--middle">
 	    <form>
@@ -15,7 +15,7 @@ function ResetPassword(action) {
 	    </form>
 	    </div>
 	    <div className="mdl-cell mdl-cell--12-col mdl-cell--middle">
-	    <button className="mdl-button mdl-js-button mdl-button--raised">Back To Login</button>
+	    <button className="mdl-button mdl-js-button mdl-button--raised" onClick={action("Login")}>Back To Login</button>
 	    </div>
 	    </div>)
 }
