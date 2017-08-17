@@ -17,7 +17,7 @@ class NewAccount extends React.Component {
 	fd.append("passwd-verify", this.state.passwd_v);
 	Data.newAccount(evt.target, fd).subscribe(
 	    _ => {
-		action("Profile")();
+		this.props.action("Profile")();
 	    },
 	    _ => {
 		this.setState({name: "", email: "", passwd: "", passwd_v: ""});

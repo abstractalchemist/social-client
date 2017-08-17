@@ -64,12 +64,15 @@ class Main extends React.Component {
 			      
 	}
     }
-    
+
+    logout(evt) {
+    }
     
     render() {
 	const navLoggedIn = [{linkname: 'Profile', clickAction : this.addViewHandler("Profile") },
 			     {linkname: 'Wall', clickAction : this.addViewHandler("Wall") },
-			     {linkname: 'Search', clickAction : this.addViewHandler("Search") }]
+			     {linkname: 'Search', clickAction : this.addViewHandler("Search") },
+			     {linkname: 'Logout', clickAction : this.logout.bind(this)} ]
 	      .map( obj => <NavLink {...obj} ></NavLink> );
 	const nav = [];
 

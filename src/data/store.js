@@ -44,9 +44,9 @@ const Data = (function() {
 
 	profile() {
 	    if(!loggedIn) {
-		return {  };
+		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile"));
 	    }
-	    return dummyProfile;
+	    
 	},
 
 	search(parameters) {
