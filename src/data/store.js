@@ -28,6 +28,10 @@ const Data = (function() {
 	url() {
 	    return baseUrl;
 	},
+	newAccount(form, fd) {
+	    
+	    return Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd));
+	},
 	isLoggedIn() {
 	    return loggedIn;
 	},
@@ -54,9 +58,10 @@ const Data = (function() {
 	    }
 	},
 	
-	login(form) {
-	    if(form) {
-		const login = Rx.Observable.fromPromise(httpPromise(form.action, "POST", new FormData(form)));
+	login(form, fd) {
+	    if(fd) {
+		
+		const login = Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd));
 		login.subscribe(
 		    _ => {
 			loggedIn = true;

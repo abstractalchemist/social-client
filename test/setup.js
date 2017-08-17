@@ -15,12 +15,18 @@ global.componentHandler = {
     upgradeDom() {
     }
 }
-//Object.keys(global.window).forEach((property) => {
-//    if (typeof global[property] === 'undefined') {
-//	global[property] = global.window[property];
-//    }
-//});
 
 global.navigator = {
     userAgent: 'node.js'
 };
+
+
+function copyProps(src, target) {
+    const props = Object.getOwnPropertyNames(src)
+          .filter(prop => typeof target[prop] === 'undefined')
+          .map(prop => Object.getOwnPropertyDescriptor(src, prop));
+    Object.defineProperties(target, props);
+}
+
+
+copyProps(window, global);

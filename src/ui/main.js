@@ -29,17 +29,20 @@ class Main extends React.Component {
 	switch(view) {
 	case "Profile":
 	    return (evt) => {
-		evt.preventDefault();
+		if(evt)
+		    evt.preventDefault();
 		this.setState({ view: <Profile {...Data.profile()} /> });
 	    }
 	case "Wall":
 	    return (evt) => {
-		evt.preventDefault();
+		if(evt)
+		    evt.preventDefault();
 		this.setState({ view: <Wall /> });
 	    }
 	case "Search":
 	    return (evt) => {
-		evt.preventDefault();
+		if(evt)
+		    evt.preventDefault();
 		this.setState({ view: <Search /> });
 	    }
 	    
