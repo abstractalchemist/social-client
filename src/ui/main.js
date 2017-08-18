@@ -31,7 +31,10 @@ class Main extends React.Component {
 	    return (evt) => {
 		if(evt)
 		    evt.preventDefault();
-		this.setState({ view: <Profile {...Data.profile()} /> });
+		Data.profile().subscribe(data => {
+		    console.log(data);
+		    this.setState({ view: <Profile {...data} /> });
+		})
 	    }
 	case "Wall":
 	    return (evt) => {

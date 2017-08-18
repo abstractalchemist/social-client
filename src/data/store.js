@@ -43,9 +43,13 @@ const Data = (function() {
 	},
 
 	profile() {
-	    if(!loggedIn) {
+	    if(loggedIn) {
 		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile"));
 	    }
+	    return Rx.Observable.create(observer => {
+		observer.onError();
+		observer.onCompleted();
+	    })
 	    
 	},
 

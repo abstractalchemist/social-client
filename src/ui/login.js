@@ -28,8 +28,8 @@ class Login extends React.Component {
 	case "login-form": {
 	    let fd = new window.FormData();
 	    fd.append("email", this.state.email);
-	    fd.append("passwd", this.state.password);
-	    Data.login(evt.target).subscribe(
+	    fd.append("password", this.state.password);
+	    Data.login(evt.target, fd).subscribe(
 		_ => {
 		    this.props.action("Profile")(evt);
 		},
