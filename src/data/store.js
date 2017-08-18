@@ -70,11 +70,19 @@ const Data = (function() {
 		return {};
 	    }
 	},
+	logout() {
+	    let logout = Rx.Observable.fromPromise(httpPromise(baseUrl + "/logout", "POST"));
+	    logout.subscribe(
+		_ => {
+		    loggedIn = false
+		});
+	    return logout;
+	},
 	
 	login(form, fd) {
 	    if(fd) {
 		
-		const login = Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd));
+		const login = Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd)).map(JSON.parse);
 		login.subscribe(
 		    _ => {
 			loggedIn = true;

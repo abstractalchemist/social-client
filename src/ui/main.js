@@ -63,7 +63,8 @@ class Main extends React.Component {
 	    }
 	case "Login":
 	    return (evt) => {
-		evt.preventDefault();
+		if(evt)
+		    evt.preventDefault();
 		this.setState({ view: <Login action={this.addViewHandler.bind(this)} /> });
 	    }
 	case "Reset Password":
@@ -76,6 +77,13 @@ class Main extends React.Component {
     }
 
     logout(evt) {
+	
+	Data.logout().subscribe(
+	    _ => {
+		this.addViewHandler("Login")();
+	    });
+	if(evt)
+	    evt.preventDefault();
     }
     
     render() {
