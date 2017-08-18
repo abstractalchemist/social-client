@@ -30,7 +30,7 @@ const Data = (function() {
 	},
 	newAccount(form, fd) {
 	    
-	    return Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd));
+	    return Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd)).map(JSON.parse);
 	},
 	isLoggedIn() {
 	    return loggedIn;
@@ -44,7 +44,7 @@ const Data = (function() {
 
 	profile() {
 	    if(loggedIn) {
-		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile"));
+		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile")).map(JSON.parse);
 	    }
 	    return Rx.Observable.create(observer => {
 		observer.onError();

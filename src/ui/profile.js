@@ -6,6 +6,12 @@ function Display(profileData) {
 	    
 	    <div className="mdl-cell">
 	    <table className="mdl-data-table mdl-js-data-table">
+	    <thead>
+	    <tr>
+	    <th className="mdl-data-table__cell--non-numeric">Attribute</th>
+	    <th className="mdl-data-table__cell--non-numeric">Value</th>
+	    </tr>
+	    </thead>
 	    <tbody>
 	    <tr>
 	    <td className="mdl-data-table__cell--non-numeric">Name</td>
@@ -24,11 +30,7 @@ function Display(profileData) {
 	    <div className="mdl-cell">
 	    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
 	    <thead>
-	    {(function() {
-		if(profileData.tags) {
-		    return (<tr><th className="mdl-data-table__cell--non-numeric">Tags</th></tr> );
-		}
-	    })()}
+	    <tr><th className="mdl-data-table__cell--non-numeric">Tags</th></tr>
 	    </thead>
 	    <tbody>
 	    {(function() {
@@ -51,7 +53,9 @@ function Display(profileData) {
 	    <div className="mdl-cell">
 	    <form onSubmit={ profileData.changeTags }>
 	    <TextField id="newTag" label="New Tag...." />
+	    <p>
 	    <input type="submit" className="mdl-button mdl-js-button mdl-button--raised" id="update"/>
+	    </p>
 	    </form>
 	    </div>
 	    
