@@ -30,26 +30,35 @@ const Data = (function() {
 	},
 	newAccount(form, fd) {
 	    
-	    return Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd)).map(JSON.parse);
+	    let newAccount = Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd)).map(JSON.parse);
+	    newAccount.subscribe(
+		_ => {
+		    loggedIn = true;
+		})
+	    return newAccount;
 	},
 	isLoggedIn() {
 	    return loggedIn;
 	},
 
 	wall() {
-	    if(!loggedIn) {
-		return {};
-	    }
+	    return [];
+	    
 	},
 
 	profile() {
-	    if(loggedIn) {
-		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile")).map(JSON.parse);
-	    }
-	    return Rx.Observable.create(observer => {
-		observer.onError();
-		observer.onCompleted();
-	    })
+	  
+	    let profile = Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile")).map(JSON.parse);
+	    profile.subscribe(
+		_ => {
+		    loggedIn = true;
+		},
+		_ => {
+		    loggedIn = false;
+		})
+	    return profile;
+	    
+	  
 	    
 	},
 

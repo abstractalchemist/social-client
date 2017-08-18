@@ -19,6 +19,13 @@ class Main extends React.Component {
 
     componentDidMount() {
 	componentHandler.upgradeDom();
+	Data.profile().subscribe(
+	    _ => {
+		this.addViewHandler("Profile")();
+	    },
+	    _ => {
+		console.log("Error attemped auto login");
+	    });
     }
     
     componentDidUpdate() {
