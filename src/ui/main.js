@@ -58,7 +58,7 @@ class Main extends React.Component {
 	    return (evt) => {
 		if(evt)
 		    evt.preventDefault();
-		this.setState({ view: <Search /> });
+		this.setState({ view: <Search store={Data}/> });
 	    }
 	    
 	case "New Account":

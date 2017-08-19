@@ -110,6 +110,9 @@ const Data = (function() {
 	    return Rx.Observable.fromArray(tags).selectMany(tag => {
 		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile/tags/" + tag, "DELETE"))
 	    });
+	},
+	profiles() {
+	    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profiles")).map(JSON.parse);
 	}
 	
     };
