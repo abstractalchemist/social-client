@@ -40,7 +40,12 @@ class Main extends React.Component {
 		    evt.preventDefault();
 		Data.profile().subscribe(data => {
 		    console.log(data);
-		    this.setState({ view: <Profile {...data} /> });
+		    this.setState({ view: <Profile changeTags={function(tag) {
+			Data.addTag(tag);
+		    }} deleteTags={function(tag) {
+			console.log("Deleting " + tag);
+			Data.deleteTags(tag).subscribe(_ => {});
+		    }} {...data} /> });
 		})
 	    }
 	case "Wall":

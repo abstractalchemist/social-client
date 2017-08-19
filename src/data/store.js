@@ -30,7 +30,7 @@ const Data = (function() {
 	},
 	newAccount(form, fd) {
 	    
-	    let newAccount = Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd)).map(JSON.parse);
+	    let newAccount = Rx.Observable.fromPromise(httpPromise(form.action, "POST", fd));
 	    newAccount.subscribe(
 		_ => {
 		    loggedIn = true;
@@ -96,8 +96,21 @@ const Data = (function() {
 		observer.onError();
 		observer.onCompleted();
 	    });
-	}
+	},
 
+	tags() {
+	    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile/tags").map(JSON.parse));
+	},
+
+	addTag(tag) {
+	    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile/tags/" + tag, "POST"));
+	},
+	deleteTags(tags) {
+	    
+	    return Rx.Observable.fromArray(tags).selectMany(tag => {
+		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile/tags/" + tag, "DELETE"))
+	    });
+	}
 	
     };
     
