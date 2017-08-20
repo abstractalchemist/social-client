@@ -4,11 +4,11 @@ import TextField from './textfield'
 class Search extends React.Component {
     constructor(props) {
 	super(props);
-	this.state = { data : [] };
+	this.state = { data : [], searchTerm : "" };
     }
 
     searchClicked(evt) {
-	this.props.store.profiles().subscribe( data => {
+	this.props.store.profiles(this.state.searchTerm).subscribe( data => {
 	    this.setState({ data: data });
 	})
 	evt.preventDefault();
@@ -18,10 +18,14 @@ class Search extends React.Component {
 	evt.preventDefault();
     }
 
+    onSearch(evt) {
+	this.setState({ searchTerm: evt.target.value });
+    }
+
     render() {
 	return ( <div className="mdl-grid">
 		 <div className="mdl-cell mdl-js-cell">
-		 <TextField id="search" />
+		 <TextField id="search" change={this.onSearch.bind(this)} value={ this.state.searchTerm } />
 		 <button id="search-field" className="mdl-button mdl-js-button mdl-button---raised" onClick={ this.searchClicked.bind(this) } >Search</button>
 		     
 		 {(_ => {

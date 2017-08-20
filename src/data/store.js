@@ -111,7 +111,9 @@ const Data = (function() {
 		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile/tags/" + tag, "DELETE"))
 	    });
 	},
-	profiles() {
+	profiles(searchTerm) {
+	    if(searchTerm)
+		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profiles?search=" + encodeURIComponent(searchTerm))).map(JSON.parse);
 	    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profiles")).map(JSON.parse);
 	}
 	
