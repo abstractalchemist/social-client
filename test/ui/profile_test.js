@@ -2,6 +2,7 @@ import React from 'react';
 import { mount,render } from 'enzyme';
 import { expect } from 'chai';
 import Profile from '../../src/ui/profile';
+import Rx from 'rx';
 
 describe('<Profile />', function() {
     it('basic', function() {
@@ -19,6 +20,11 @@ describe('<Profile />', function() {
 	let tag = {};
 	let tagUpdate = function(_tag) {
 	    tag = _tag;
+	    return Rx.Observable.create(
+		(observer) => {
+		    observer.onNext(_tag);
+		    observer.onCompleted();
+		});
 	}
 	const elem = mount( <Profile name="Jason Hirata" email="foo@bar.com" tags={[{"tag" : "computer_science"},{"tag":"weiss"}]} changeTags={tagUpdate} />);
 	let inputTag = elem.find("#newTag");

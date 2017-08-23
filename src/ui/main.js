@@ -41,16 +41,22 @@ class Main extends React.Component {
 		})
 	    }
 	case "Profile":
+	    let myThis = this;
 	    return (evt) => {
 		if(evt)
 		    evt.preventDefault();
 		Data.profile().subscribe(data => {
 		    console.log(data);
 		    this.setState({ view: <Profile changeTags={function(tag) {
-			Data.addTag(tag);
+			
+			let updateTag = Data.addTag(tag);
+			myThis.addViewHandler("Profile")();
+			return updateTag;
 		    }} deleteTags={function(tag) {
-			console.log("Deleting " + tag);
-			Data.deleteTags(tag).subscribe(_ => {});
+			Data.deleteTags(tag).subscribe(_ => {
+			    console.log("deleted " + tag);
+			    myThis.addViewHandler("Profile")();
+			});
 		    }} {...data} /> });
 		})
 	    }

@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from './textfield';
-
+import Data from '../data/store';
 
 class TagForm extends React.Component {
     constructor(props) {
@@ -9,10 +9,14 @@ class TagForm extends React.Component {
     }
 
     submit(evt) {
+	evt.preventDefault();
 	let form = evt.target;
 	console.log(this.state.value);
-	this.props.changeTags(this.state.value);
-	evt.preventDefault();
+	this.props.changeTags(this.state.value).subscribe(
+	    _ => {
+		evt.preventDefault();		
+	    });
+
     }
 
     onChange(evt) {
