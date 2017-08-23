@@ -46,19 +46,29 @@ const Data = (function() {
 	    
 	},
 
-	profile() {
-	  
-	    let profile = Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile")).map(JSON.parse);
-	    profile.subscribe(
-		_ => {
-		    loggedIn = true;
-		},
-		_ => {
-		    loggedIn = false;
+	profile(id) {
+	    if(id) {
+		let profile = Rx.Observable.fromPromise(httpPromise(baseUrl + "/" + id + "/profile")).map(JSON.parse).selectMany(data => {
+		    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/" + id + "/tags")).map(JSON.parse).map(tag_data => {
+			data['tags'] = tag_data;
+			return data;
+		    })
+			
 		})
-	    return profile;
+		return profile;
+	    }
+	    else {
+		let profile = Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile")).map(JSON.parse);
+		profile.subscribe(
+		    _ => {
+			loggedIn = true;
+		    },
+		    _ => {
+			loggedIn = false;
+		    })
+		return profile;
+	    }
 	    
-	  
 	    
 	},
 
@@ -113,7 +123,7 @@ const Data = (function() {
 	},
 	profiles(searchTerm) {
 	    if(searchTerm)
-		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profiles?search=" + encodeURIComponent(searchTerm))).map(JSON.parse);
+		return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profiles?searchTerms=" + encodeURIComponent(searchTerm))).map(JSON.parse);
 	    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profiles")).map(JSON.parse);
 	}
 	

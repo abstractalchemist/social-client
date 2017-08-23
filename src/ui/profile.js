@@ -60,6 +60,7 @@ function Display(profileData) {
 	    </div>
 	    
 	    <div className="mdl-cell">
+	    <p>
 	    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable" id="tag-table">
 	    <thead>
 	    <tr><th className="mdl-data-table__cell--non-numeric">Tags</th></tr>
@@ -78,7 +79,8 @@ function Display(profileData) {
 	    }
 	    </tbody>
 	    </table>
-
+	    </p>
+	    <p>
 	    <button id="delete-tags" className="mdl-button mdl-js-button mdl-button--raised" onClick={ function(evt) {
 		let table = document.querySelector("#tag-table");
 		let values = table.querySelectorAll("tbody tr");
@@ -96,6 +98,7 @@ function Display(profileData) {
 		evt.preventDefault();
 		
 	    }} >Delete Selected</button>
+	    </p>
 	    </div>
 	    <TagForm changeTags={ profileData.changeTags }/>
 	    
@@ -126,7 +129,10 @@ function Profile(profileData) {
 	    }
 	    <div className="mdl-tabs__tab-bar">
 	    <a href="#tab1" className="mdl-tabs__tab">Profile</a>
-	    <a href="#tab2" className="mdl-tabs__tab">Security</a>
+	    {(_ => {
+		if(profileData.email)
+		    return ( <a href="#tab2" className="mdl-tabs__tab">Security</a> );
+	    })()}
 	    </div>
 
 	    <div className="mdl-tabs__panel is-active" id="tab1">

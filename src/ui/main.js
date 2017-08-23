@@ -34,6 +34,12 @@ class Main extends React.Component {
 
     addViewHandler(view) {
 	switch(view) {
+	case "User Profile":
+	    return (profile) => {
+		return Data.profile(profile).subscribe(data => {
+		    this.setState({ view: <Profile {...data} /> });
+		})
+	    }
 	case "Profile":
 	    return (evt) => {
 		if(evt)
@@ -58,7 +64,7 @@ class Main extends React.Component {
 	    return (evt) => {
 		if(evt)
 		    evt.preventDefault();
-		this.setState({ view: <Search store={Data}/> });
+		this.setState({ view: <Search store={Data} action={this.addViewHandler.bind(this)}/> });
 	    }
 	    
 	case "New Account":

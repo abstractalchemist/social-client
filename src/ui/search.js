@@ -22,6 +22,12 @@ class Search extends React.Component {
 	this.setState({ searchTerm: evt.target.value });
     }
 
+    viewProfile(evt) {
+	let data_id = evt.target.dataset.userId;
+	this.props.action("User Profile")(data_id);
+	evt.preventDefault();
+    }
+
     render() {
 	return ( <div className="mdl-grid">
 		 <div className="mdl-cell mdl-js-cell">
@@ -37,7 +43,7 @@ class Search extends React.Component {
 				     <div className="mdl-card__supporting-text">Tags: {obj.tags.map(({tag}) => tag).join(',')}</div>
 				     <div className="mdl-card__actions">
 				     <button className="mdl-button mdl-js-button mdl-button--raised" onClick={this.friendMessage.bind(this)}>Friend Message</button>
-				     <button className="mdl-button mdl-js-button mdl-button--raised" onClick={this.viewProfile.bind(this)}>View Profile</button>
+				     <button className="mdl-button mdl-js-button mdl-button--raised" data-user-id={obj.id} onClick={this.viewProfile.bind(this)}>View Profile</button>
 				     </div>
 				     </div>)
 			 })
