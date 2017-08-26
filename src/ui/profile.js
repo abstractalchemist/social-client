@@ -15,6 +15,9 @@ class TagForm extends React.Component {
 	this.props.changeTags(this.state.value).subscribe(
 	    _ => {
 		evt.preventDefault();		
+	    },
+	    err => {
+		console.log("error during tag adding " + err);
 	    });
 
     }
@@ -64,7 +67,7 @@ function Display(profileData) {
 	    </div>
 	    
 	    <div className="mdl-cell">
-	    <p>
+	    
 	    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable" id="tag-table">
 	    <thead>
 	    <tr><th className="mdl-data-table__cell--non-numeric">Tags</th></tr>
@@ -73,8 +76,10 @@ function Display(profileData) {
 	    {(function() {
 		if(profileData.tags) {
 		    return profileData.tags.map(({tag}) => {
-			return ( <tr>
-				 <td className="mdl-data-table__cell--non-numeric">{tag}</td>
+			return ( <tr id={tag + "-id"}>
+				 <td className="mdl-data-table__cell--non-numeric" dangerouslySetInnerHTML={(_ => {
+				     return { __html: decodeURIComponent(tag) }
+				 })()} />
 				 </tr> )
 		    });
 					       
@@ -83,8 +88,7 @@ function Display(profileData) {
 	    }
 	    </tbody>
 	    </table>
-	    </p>
-	    <p>
+
 	    <button id="delete-tags" className="mdl-button mdl-js-button mdl-button--raised" onClick={ function(evt) {
 		let table = document.querySelector("#tag-table");
 		let values = table.querySelectorAll("tbody tr");
@@ -102,7 +106,7 @@ function Display(profileData) {
 		evt.preventDefault();
 		
 	    }} >Delete Selected</button>
-	    </p>
+
 	    </div>
 	    <TagForm changeTags={ profileData.changeTags }/>
 	    
@@ -125,31 +129,45 @@ function ChangePassword({changePassword}) {
 }
 
 
-function Profile(profileData) {
-    return (<div className="mdl-tabs mdl-js-tabs">
+class Profile extends React.PureComponent {
+    constructor(props) {
+	super(props);
+	
+    }
+    shouldComponentUpdate() {
+	return true;
+    }
+    
+    componentDidUpdate() {
+	componentHandler.upgradeElement(document.querySelector('#tag-table'));
+    }
+    
+    render() {
+	return (<div className="mdl-tabs mdl-js-tabs">
 
-	    {
-		// this is the tabs
-	    }
-	    <div className="mdl-tabs__tab-bar">
-	    <a href="#tab1" className="mdl-tabs__tab">Profile</a>
-	    {(_ => {
-		if(profileData.email)
-		    return ( <a href="#tab2" className="mdl-tabs__tab">Security</a> );
-	    })()}
-	    </div>
+		{
+		    // this is the tabs
+		}
+		<div className="mdl-tabs__tab-bar">
+		<a href="#tab1" className="mdl-tabs__tab">Profile</a>
+		{(_ => {
+		    if(this.props.email)
+			return ( <a href="#tab2" className="mdl-tabs__tab">Security</a> );
+		})()}
+		</div>
 
-	    <div className="mdl-tabs__panel is-active" id="tab1">
-	    <p>Profile</p>
-	    <Display {...profileData} />
-	    </div>
+		<div className="mdl-tabs__panel is-active" id="tab1">
+		<p>Profile</p>
+		<Display {...this.props} />
+		</div>
 
-	    <div className="mdl-tabs__panel" id="tab2">
-	    <p>Security</p>
-	    <ChangePassword />
-	    </div>
-	    
-	    </div>)
+		<div className="mdl-tabs__panel" id="tab2">
+		<p>Security</p>
+		<ChangePassword />
+		</div>
+		
+		</div>)
+    }
 }
 
 export default Profile;

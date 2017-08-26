@@ -29,6 +29,7 @@ class Main extends React.Component {
     }
     
     componentDidUpdate() {
+	console.log("mounting");
 	componentHandler.upgradeDom();
     }
 
@@ -50,7 +51,13 @@ class Main extends React.Component {
 		    this.setState({ view: <Profile changeTags={function(tag) {
 			
 			let updateTag = Data.addTag(tag);
-			myThis.addViewHandler("Profile")();
+			updateTag.subscribe(
+			    _ => {
+				myThis.addViewHandler("Profile")();
+			    },
+			    err => {
+				console.log(err);
+			    });
 			return updateTag;
 		    }} deleteTags={function(tag) {
 			Data.deleteTags(tag).subscribe(_ => {

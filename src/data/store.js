@@ -113,7 +113,7 @@ const Data = (function() {
 	},
 
 	addTag(tag) {
-	    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile/tags/" + tag, "POST"));
+	    return Rx.Observable.fromPromise(httpPromise(baseUrl + "/profile/tags/" + encodeURI(tag), "POST"));
 	},
 	deleteTags(tags) {
 	    
